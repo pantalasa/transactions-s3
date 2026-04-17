@@ -2,30 +2,19 @@ name: CI
 
 on:
   push:
-    branches:
-      - "**"
+    branches: [ main ]
+    tags: [ "v*" ]
   pull_request:
-    branches:
-      - "**"
+    branches: [ main ]
 
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  lunar:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: lunar
     steps:
-      - name: Run Lunar CI Agent
-        uses: earthly/lunar-ci-action@main
-        env:
-          LUNAR_HUB_TOKEN: ${{ secrets.LUNAR_HUB_TOKEN }}
-          LUNAR_HUB_HOST: lunar.demo.earthly.dev
-          LUNAR_LOG_LEVEL: debug
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          clean: true
-      - name: Validate Terraform
-        run: |
-          echo "Module syntax validation runs via the Terraform collector."
+      - uses: actions/checkout@v4
+      - name: Terraform module - validated by lunar collectors
+        run: echo "No build step - this repo is a Terraform module library"
