@@ -1,20 +1,17 @@
 name: CI
-
 on:
-  push:
-    branches: [ main ]
-    tags: [ "v*" ]
-  pull_request:
-    branches: [ main ]
-
+    push:
+        branches: [main]
+        tags: ["v*"]
+    pull_request:
+        branches: [main]
 concurrency:
-  group: ci-${{ github.ref }}
-  cancel-in-progress: true
-
+    group: ci-${{ github.ref }}
+    cancel-in-progress: true
 jobs:
-  build:
-    runs-on: lunar
-    steps:
-      - uses: actions/checkout@v4
-      - name: Terraform module - validated by lunar collectors
-        run: echo "No build step - this repo is a Terraform module library"
+    build:
+        runs-on: localdev-dchw-test1428-main
+        steps:
+            - uses: actions/checkout@v4
+            - name: Terraform module - validated by lunar collectors
+              run: echo "No build step - this repo is a Terraform module library"
